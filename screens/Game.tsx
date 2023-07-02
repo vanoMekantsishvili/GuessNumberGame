@@ -1,6 +1,12 @@
 import { Ionicons } from '@expo/vector-icons';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { Alert, FlatList, StyleSheet, View } from 'react-native';
+import {
+  Alert,
+  FlatList,
+  StyleSheet,
+  View,
+  useWindowDimensions,
+} from 'react-native';
 import Card from '../components/Card';
 import GuessItem from '../components/GuessItem';
 import InstructionsText from '../components/InstructionsText';
@@ -45,6 +51,8 @@ export default function Game({
 }: GameProps) {
   const minBoundary = useRef(1);
   const maxBoundary = useRef(100);
+
+  const { width, height } = useWindowDimensions();
 
   const initialGuess = useMemo(
     () =>
@@ -107,9 +115,8 @@ export default function Game({
     );
   };
 
-  return (
-    <View style={styles.screen}>
-      <Title>Opponent's guess</Title>
+  let content = (
+    <>
       <NumberContainer>{currentGuess}</NumberContainer>
       <Card>
         <InstructionsText style={styles.instructionsText}>
@@ -128,6 +135,33 @@ export default function Game({
           </View>
         </View>
       </Card>
+    </>
+  );
+
+  if (width > 500) {
+    content = (
+      <>
+        <View style={styles.buttonContainerWide}>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton onPress={() => nextGuessHandler(Direction.GREATER)}>
+              <Ionicons name="md-add" size={24} color="white" />
+            </PrimaryButton>
+          </View>
+          <NumberContainer>{currentGuess}</NumberContainer>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton onPress={() => nextGuessHandler(Direction.LOWER)}>
+              <Ionicons name="md-remove" size={24} color="white" />
+            </PrimaryButton>
+          </View>
+        </View>
+      </>
+    );
+  }
+
+  return (
+    <View style={styles.screen}>
+      <Title>Opponent's guess</Title>
+      {content}
       <View style={styles.guessNumbersListContainer}>
         {
           <FlatList
@@ -160,5 +194,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 24,
     padding: 16,
     flex: 1,
+  },
+  buttonContainerWide: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });
