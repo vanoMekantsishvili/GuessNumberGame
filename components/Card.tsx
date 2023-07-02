@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Dimensions, StyleSheet, View } from 'react-native';
 import { Color } from '../assets/styles/colors';
 
 export interface CardProps {
@@ -10,10 +10,12 @@ export default function Card({ children }: CardProps) {
   return <View style={styles.inputContainer}>{children}</View>;
 }
 
+const deviseWidth = Dimensions.get('window').width;
+
 const styles = StyleSheet.create({
   inputContainer: {
     padding: 16,
-    marginTop: 36,
+    marginTop: deviseWidth < 380 ? 18 : 36,
     marginHorizontal: 24,
     borderRadius: 8,
     backgroundColor: Color.backgroundColor,

@@ -19,5 +19,7 @@ const styles = StyleSheet.create({
     padding: 12,
     margin: 16,
     fontFamily: 'open-sans-bold',
+    maxWidth: '80%',
+    width: 300,
   },
 });

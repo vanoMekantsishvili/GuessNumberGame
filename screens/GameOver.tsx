@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
 import { Color } from '../assets/styles/colors';
 import PrimaryButton from '../components/PrimaryButton';
 import Title from '../components/Title';
@@ -36,6 +36,8 @@ export default function GameOver({
   );
 }
 
+const deviseWidth = Dimensions.get('window').width;
+
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
@@ -54,9 +56,9 @@ const styles = StyleSheet.create({
     fontFamily: 'open-sans-bold',
   },
   imageContainer: {
-    borderRadius: 200,
-    width: 300,
-    height: 300,
+    borderRadius: deviseWidth < 380 ? 75 : 150,
+    width: deviseWidth < 380 ? 150 : 300,
+    height: deviseWidth < 380 ? 150 : 300,
     borderWidth: 3,
     borderColor: Color.backgroundColor,
     overflow: 'hidden',

@@ -144,6 +144,8 @@ export default function Game({
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
+    padding: 24,
+    alignItems: 'center',
   },
   buttonsContainer: {
     flexDirection: 'row',
